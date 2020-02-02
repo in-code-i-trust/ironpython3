@@ -821,8 +821,8 @@ namespace IronPython.Compiler.Ast {
             node.Parent = _currentScope;
 
             if (node.Target is NameExpression nameExpr && nameExpr.Name == "super" && _currentScope is FunctionDefinition func) {
+                _currentScope.Reference("__class__");
                 if (node.Args.Length == 0 && func.ParameterNames.Length > 0) {
-                    _currentScope.Reference("__class__");
                     node.ImplicitArgs.Add(new Arg(new NameExpression("__class__")));
                     node.ImplicitArgs.Add(new Arg(new NameExpression(func.ParameterNames[0])));
                 }
